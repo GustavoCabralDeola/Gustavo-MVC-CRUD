@@ -1,4 +1,5 @@
 ﻿using Gustavo_MVC_CRUD.Models;
+using Gustavo_MVC_CRUD.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
