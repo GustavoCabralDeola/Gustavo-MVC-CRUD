@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Gustavo_MVC_CRUD.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cadastro de Usuários</h1>
+
+<p>
+    <div class="form-group">
+        <a asp-action="Create">
+        <input type="submit" value="Cadastrar um novo usuário" class="btn btn-primary">
+        </a>
+    </div>
+</p>
+<table class="table">
+    <thead>
+        <tr class="success" style="background-color: mediumspringgreen">
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonePessoal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneComercial)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonePessoal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefoneComercial)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
