@@ -12,6 +12,6 @@ namespace Gustavo_MVC_CRUD.Data
         {
         }
 
-        public DbSet<User> Users { get; set; } = default!;
+        public DbSet<Gustavo_MVC_CRUD.Models.User> Users { get; set; } = default!;
     }
 }
