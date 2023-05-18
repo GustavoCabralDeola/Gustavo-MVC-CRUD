@@ -1,41 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gustavo_MVC_CRUD.Data;
 using Gustavo_MVC_CRUD.Models;
 
 namespace Gustavo_MVC_CRUD.Controllers
 {
-    public class UsersController : Controller
+    public class UsuarioController : Controller
     {
         private readonly Context _context;
 
-        public UsersController(Context context)
+        public UsuarioController(Context context)
         {
             _context = context;
         }
 
-        // GET: Users
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return _context.Users != null ? 
-                          View(await _context.Users.ToListAsync()) :
-                          Problem("Entity set 'Gustavo_MVC_CRUDContext.User'  is null.");
+              return _context.Usuarios != null ? 
+                          View(await _context.Usuarios.ToListAsync()) :
+                          Problem("Entity set 'Gustavo_MVC_CRUDContext.Usuario'  is null.");
         }
 
-        // GET: Users/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Users == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var user = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -45,37 +41,37 @@ namespace Gustavo_MVC_CRUD.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Company,Email,PersonalPhone,CommercialPhone")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Empresa,Email,TelefonePessoal,TelefoneComercial")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(usuario);
         }
 
-        // GET: Users/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Users == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Usuarios.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -83,14 +79,14 @@ namespace Gustavo_MVC_CRUD.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Company,Email,PersonalPhone,CommercialPhone")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Empresa,Email,TelefonePessoal,TelefoneComercial")] Usuario usuario)
         {
-            if (id != user.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -99,12 +95,12 @@ namespace Gustavo_MVC_CRUD.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!UserExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -115,18 +111,18 @@ namespace Gustavo_MVC_CRUD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(usuario);
         }
 
-        // GET: Users/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Users == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var user = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -136,19 +132,19 @@ namespace Gustavo_MVC_CRUD.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Users == null)
+            if (_context.Usuarios == null)
             {
-                return Problem("Entity set 'Gustavo_MVC_CRUDContext.User'  is null.");
+                return Problem("Entity set 'Gustavo_MVC_CRUDContext.Usuario'  is null.");
             }
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Usuarios.FindAsync(id);
             if (user != null)
             {
-                _context.Users.Remove(user);
+                _context.Usuarios.Remove(user);
             }
             
             await _context.SaveChangesAsync();
@@ -157,7 +153,7 @@ namespace Gustavo_MVC_CRUD.Controllers
 
         private bool UserExists(int id)
         {
-          return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
