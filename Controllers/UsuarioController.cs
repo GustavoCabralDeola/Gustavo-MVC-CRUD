@@ -18,9 +18,9 @@ namespace Gustavo_MVC_CRUD.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
-                          Problem("Entity set 'Gustavo_MVC_CRUDContext.Usuario'  is null.");
+            return _context.Usuarios != null ?
+                        View(await _context.Usuarios.ToListAsync()) :
+                        Problem("Entity set 'Gustavo_MVC_CRUDContext.Usuario'  is null.");
         }
 
         // GET: Usuarios/Details/5
@@ -54,16 +54,25 @@ namespace Gustavo_MVC_CRUD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Empresa,Email,TelefonePessoal,TelefoneComercial")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(usuario);
+                if (ModelState.IsValid)
+                {
+                    _context.Add(usuario);
+                    TempData["MensagemSucesso"] = "Usuario cadastrado com sucesso!";
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(usuario);
+            }
+            catch (System.Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possivel efetuar o cadastro, detalhes do erro: {erro.Message}";
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuario);
+
         }
-
-
 
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -98,12 +107,14 @@ namespace Gustavo_MVC_CRUD.Controllers
                 try
                 {
                     _context.Update(usuario);
+                    TempData["MensagemSucesso"] = "Usuario editado com sucesso!";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!UserExists(usuario.Id))
                     {
+                        TempData["MensagemErro"] = "Não foi possivel editar o cadastro";
                         return NotFound();
                     }
                     else
@@ -143,19 +154,33 @@ namespace Gustavo_MVC_CRUD.Controllers
             {
                 return Problem("Entity set 'Gustavo_MVC_CRUDContext.Usuario'  is null.");
             }
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
+            try
             {
-                _context.Usuarios.Remove(usuario);
+                var usuario = await _context.Usuarios.FindAsync(id);
+                if (usuario != null)
+                {
+                    TempData["MensagemSucesso"] = "Usuario deletado com sucesso!";
+                    _context.Usuarios.Remove(usuario);
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Não foi possivel efetuar o cadastro";
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (System.Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possivel efetuar o cadastro, detalhes do erro: {erro.Message}";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         private bool UserExists(int id)
         {
-          return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
+
