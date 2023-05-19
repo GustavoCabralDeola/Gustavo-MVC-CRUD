@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Gustavo_MVC_CRUD.Data;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +6,7 @@ builder.Services.AddDbContext<Context>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("Context"),
         ServerVersion.Parse("8.0.33-mysql"),
         b => b.MigrationsAssembly("Gustavo MVC CRUD")));
-        
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

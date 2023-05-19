@@ -1,4 +1,5 @@
 ﻿using Gustavo_MVC_CRUD.Models;
+using Gustavo_MVC_CRUD.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -18,7 +19,12 @@ namespace Gustavo_MVC_CRUD.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Sobre()
+        {
+            return View();
+        }
+
+        public IActionResult Contato()
         {
             return View();
         }

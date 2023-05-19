@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gustavo_MVC_CRUD.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230517213111_UserMigration")]
-    partial class UserMigration
+    [Migration("20230518044435_UsuarioMigration")]
+    partial class UsuarioMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,38 +20,38 @@ namespace Gustavo_MVC_CRUD.Migrations
                 .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Gustavo_MVC_CRUD.Models.User", b =>
+            modelBuilder.Entity("Gustavo_MVC_CRUD.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CommercialPhone")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("varchar(15)");
-
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Empresa")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("varchar(60)");
 
-                    b.Property<string>("PersonalPhone")
+                    b.Property<string>("TelefoneComercial")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<string>("TelefonePessoal")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Usuario");
                 });
 #pragma warning restore 612, 618
         }

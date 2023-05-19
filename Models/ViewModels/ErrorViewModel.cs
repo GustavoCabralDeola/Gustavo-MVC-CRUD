@@ -1,4 +1,4 @@
-namespace Gustavo_MVC_CRUD.Models
+namespace Gustavo_MVC_CRUD.Models.ViewModels
 {
     public class ErrorViewModel
     {
