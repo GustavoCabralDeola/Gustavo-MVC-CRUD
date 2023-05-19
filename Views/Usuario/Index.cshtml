@@ -4,16 +4,36 @@
     ViewData["Title"] = "Usuario";
 }
 
-<h1>Cadastro de Usuários</h1>
+<h1 style="text-align:center">Cadastro de Usuários</h1>
 
 <p>
     <div class="form-group">
         <a asp-action="Create">
-        <input type="submit" value="Cadastrar um novo usuário" class="btn btn-primary">
+            <input type="submit" value="Cadastrar um novo usuário" class="btn btn-primary">
         </a>
     </div>
 </p>
-<table class="table">
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<br />
+
+
+<table class="table" id="table-usuarios">
     <thead>
         <tr class="success" style="background-color: mediumspringgreen">
             <th>
@@ -35,29 +55,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Empresa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelefonePessoal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelefoneComercial)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefonePessoal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefoneComercial)
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Deletar</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
