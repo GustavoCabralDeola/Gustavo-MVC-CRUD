@@ -34,18 +34,22 @@ namespace Gustavo_MVC_CRUD.Models {
             public string Nome { get; set; }
 
             [Display(Name = "Empresa")]
+            [Required(ErrorMessage = "{0} exigido")]
+            [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} o tamanho deve ser entre {2} e {1}")]
             public string Empresa { get; set; }
 
-            
+            [Required(ErrorMessage = "{0} exigido")]
             [EmailAddress(ErrorMessage = "Digite um email válido")]
             [DataType(DataType.EmailAddress)]
             [Display(Name = "Email")]
             public string Email { get; set; }
-            
+
+            [Required(ErrorMessage = "{0} exigido")]    
             [Display(Name = "Telefone Pessoal")]
             [StringLength(15,MinimumLength = 11, ErrorMessage = "Digite um numero válido")]
             public string TelefonePessoal { get; set; }
 
+            [Required(ErrorMessage = "{0} exigido")]
             [Display(Name = "Telefone Comercial")]
             [StringLength(15, MinimumLength = 11, ErrorMessage = "Digite um numero válido")]
             public string TelefoneComercial { get; set; }
