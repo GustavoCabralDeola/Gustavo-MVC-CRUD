@@ -19,7 +19,12 @@ namespace Gustavo_MVC_CRUD.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Sobre()
+        {
+            return View();
+        }
+
+        public IActionResult Contato()
         {
             return View();
         }
