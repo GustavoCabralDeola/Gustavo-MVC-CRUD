@@ -122,14 +122,14 @@ namespace Gustavo_MVC_CRUD.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Usuarios
+            var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(usuario);
         }
 
         // POST: Usuarios/Delete/5
@@ -141,10 +141,10 @@ namespace Gustavo_MVC_CRUD.Controllers
             {
                 return Problem("Entity set 'Gustavo_MVC_CRUDContext.Usuario'  is null.");
             }
-            var user = await _context.Usuarios.FindAsync(id);
-            if (user != null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario != null)
             {
-                _context.Usuarios.Remove(user);
+                _context.Usuarios.Remove(usuario);
             }
             
             await _context.SaveChangesAsync();
